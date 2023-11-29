@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Chatbot</title>
+<style>
+    /* Add your CSS styles here */
+    /* Example styles */
+    .chat-container {
+      max-width: 400px;
+      margin: 20px auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    .chat-box {
+      height: 300px;
+      overflow-y: scroll;
+      border: 1px solid #eee;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+    input[type="text"] {
+      width: calc(100% - 60px);
+      padding: 8px;
+      margin-right: 10px;
+    }
+    button {
+      padding: 8px 16px;
+      cursor: pointer;
+    }
+</style>
+</head>
+<body>
+<div class="chat-container">
+<div class="chat-box" id="chat-box"></div>
+<input type="text" id="user-input" placeholder="Type a message...">
+<button onclick="sendMessage()">Send</button>
+</div>
+<script>
+    function sendMessage() {
+      const userInput = document.getElementById('user-input').value;
+      if (userInput.trim() === '') return;
+ 
+      displayMessage('user', userInput);
+      getBotResponse();
+      document.getElementById('user-input').value = '';
+    }
+ 
+    function getBotResponse() {
+      const botResponses = [
+        'Hello, how can I help you?',
+        'I\'m here to assist you!',
+        'That\'s an interesting question!',
+        'I\'m not quite sure, could you provide more details?',
+        'I\'m sorry, I didn\'t understand that.'
+      ];
+ 
+      const randomIndex = Math.floor(Math.random() * botResponses.length);
+      const botResponse = botResponses[randomIndex];
+      displayMessage('bot', botResponse);
+    }
+ 
+    function displayMessage(sender, message) {
+      const chatBox = document.getElementById('chat-box');
+      const messageElement = document.createElement('div');
+      messageElement.classList.add(sender === 'user' ? 'user-message' : 'bot-message');
+      messageElement.innerHTML = message;
+      chatBox.appendChild(messageElement);
+ 
+      // Scroll chat to the bottom
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+</script>
+</body>
+</html>
